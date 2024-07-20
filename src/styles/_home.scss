@@ -1,0 +1,15 @@
+.container {
+  background: aliceblue;
+  padding-inline: 2rem;
+  padding-block: 2rem;
+  border-radius: 14px;
+  height: 95vh;
+
+  .header-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+  }
+}
