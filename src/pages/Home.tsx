@@ -1,27 +1,31 @@
 import React from 'react';
-import ListTemplates from '../components/ListTemplates';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import TemplateList from '../components/TemplateList';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 
+/**
+ * Renders the Home component displaying a list of templates.
+ *
+ * @return {ReactElement} The rendered Home component.
+ */
 const Home: React.FC = () => {
+    const templates = useSelector((state: RootState) => state.templateEmail.templates);
 
     return (
         <div className="container mx-auto pl-12">
             <div className='header-page'>
-                <div className='text-3xl mb-4 pl-12'>Listes des Templates</div>
-                <div className="display-flex">
-                    {/* <SideBar title={'Filtre'} content={'Un test'}/> */}
+                <div className='title-page'>List Of Templates</div>
+                <div className="actions-header">
                     <Link to="/new-template">
-
-                        <Button type="button" label="Ajouter un template" icon="pi pi-plus"
-                            tooltip="Nouveau template" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
+                    <Button type="button" label="New template" icon="pi pi-plus"
+                            tooltip="New Template" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
                     </Link>
                 </div>
 
             </div>
-            {/* <ListTemplates /> */}
             <TemplateList />
 
         </div>

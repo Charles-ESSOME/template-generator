@@ -1,0 +1,27 @@
+.create-template {
+  height: 100%;
+
+  .group-btn {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .right-block {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+
+  .email-editor {
+    position: relative;
+
+    .btn-save {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 21.3em;
+    }
+  }
+
+}

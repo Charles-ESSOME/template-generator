@@ -1,31 +1,71 @@
-import React from 'react';
-import TemplatesEmail from '../models/template-email.models.';
-import { useSelector } from 'react-redux';
+import EmptyList from './EmptyList';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { Toast } from 'primereact/toast';
 import { RootState } from '../redux/store';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { DataTable } from 'primereact/datatable';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeTemplate } from '../redux/templatesSlice';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 const TemplateList: React.FC = () => {
-    const templates = useSelector((state: RootState) => state.templateEmail.templates);
-    console.log('templates:', templates);
+    const templates = useSelector((state: RootState) => state?.templateEmail?.templates);
+
+    const dispatch = useDispatch();
+
+    const toast = useRef<Toast>(null);
+    const accept = (id: string) => {
+        toast.current?.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        dispatch(removeTemplate(id));
+    }
+
+
+    const removeCurrentTemplate = (id: string) => {
+        confirmDialog({
+            message: 'Do you want to delete this templates?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            defaultFocus: 'reject',
+            acceptClassName: 'p-button-danger',
+            accept: () => accept(id),
+        });
+    };
+ 
+    const actionBodyTemplate = (rowData: any) => {
+        return (
+            <div className='row-actions'>
+                <Link to={'template/' + rowData?.id + '?isView=true'}>
+                    <Button tooltip="Preview Template" text icon="pi pi-eye" rounded></Button>
+                </Link>
+                <Link to={'template/' + rowData?.id}>
+                    <Button tooltip="Edit Template" text icon="pi pi-pencil" aria-label="edit" rounded severity="success"></Button>
+                </Link>
+                <>
+                    <Toast ref={toast} />
+                    <ConfirmDialog />
+                    <div className="card flex flex-wrap gap-2 justify-content-center">
+                        <Button onClick={() => removeCurrentTemplate(rowData.id)} icon="pi pi-trash" rounded text severity="danger" aria-label="Cancel"
+                            tooltip="Remove Template" />
+                    </div>
+                </>
+            </div>
+        );
+    };
 
     return (
-        <div className="template-list border rounded p-4 mt-4">
-            <h2 className="text-xl font-bold mb-4">Your Templates</h2>
-            {templates.length === 0 ? (
-                <p>Aucun template disponible.</p>
-            ) : (
-                <ul>
-                    {templates.map((template: TemplatesEmail) => (
-                        <li key={template.id}>
-                            <h3>{template.name}</h3>
-                            <p>Catégorie: {template.category}</p>
-                            <p>Créé le: {new Date(template.created_at).toLocaleDateString()}</p>
-                            <p>Mis à jour le: {new Date(template.updated_at).toLocaleDateString()}</p>
-                            <p>Contenu: {template.content.substring(0, 100)}...</p>
-                            <p>Créé par: {template.user.firstName} {template.user.lastName}</p>
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <div className="card">
+            <Toast ref={toast} />
+            {templates.length ? <DataTable value={templates} tableStyle={{ minWidth: '50rem' }} lazy={true} emptyMessage>
+                <Column field="name" header="Nom template"></Column>
+                <Column field="user.firstName" header="Éditeur"></Column>
+                <Column field="created_at" header="Date creation"></Column>
+                <Column field="category" header="Category"></Column>
+
+                <Column body={actionBodyTemplate} header="Actions" />
+            </DataTable>
+                : <EmptyList emptyMessage="Aucun template" showImg={true} />}
         </div>
     );
 };

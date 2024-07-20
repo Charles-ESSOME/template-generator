@@ -1,9 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import TemplateDetail from './pages/TemplateDetail';
 import { PrimeReactProvider } from 'primereact/api';
-import CreateTemplate from './pages/CreateTemplate';
+import ManageTemplate from './pages/ManageTemplate';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 const App: React.FC = () => {
@@ -12,8 +11,9 @@ const App: React.FC = () => {
             <Switch>
                 <PrimeReactProvider>
                     <Route path="/" exact component={Home} />
-                    <Route path="/template/:id" component={TemplateDetail} />
-                    <Route path="/new-template" component={CreateTemplate} />
+                    <Route path="/template/:id" component={ManageTemplate} />
+                    <Route path="/template/edit/:id" component={ManageTemplate} />
+                    <Route path="/new-template" component={ManageTemplate} />
                 </PrimeReactProvider>
             </Switch>
         </Router>

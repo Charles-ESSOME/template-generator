@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.6",
+    "@reduxjs/toolkit": "^1.9.3",
+    "postcss-import": "^16.1.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.7.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-email-editor": "^1.7.11",
-    "react-redux": "^9.1.2",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^5.3.4",
     "redux": "^5.0.1",
-    "sass": "^1.77.8",
-    "tailwindcss": "^2.2.19"
+    "redux-persist": "^6.0.0",
+    "sass": "^1.77.8"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -24,6 +25,7 @@
     "postcss": "^8.4.39",
     "postcss-cli": "^8.3.1",
     "react-scripts": "4.0.3",
+    "tailwindcss": "^3.4.6",
     "typescript": "^5.5.3"
   },
   "scripts": {

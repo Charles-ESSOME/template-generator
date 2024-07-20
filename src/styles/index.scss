@@ -1,6 +1,8 @@
 @forward './tailwind.scss';
 
-@forward './home.scss';
+@forward './pages/page.scss';
 
 @forward './global.scss';
+
+@forward './components/components.scss'
 // /* @import './components/_list.scss' */

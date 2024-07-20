@@ -1,16 +1,11 @@
-interface User {
-  lastName: string;
-  firstName: string;
-  id: string;
-  tel: string;
-}
+import { User } from "./user.models";
 
 export default interface TemplatesEmail {
-  name: string;
-  created_at: number;
-  updated_at: number;
-  content: string;
   id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+  content: object | string;
   category: string;
   user: User;
 }

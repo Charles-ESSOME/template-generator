@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 
 import './styles/index.scss';
@@ -9,7 +9,7 @@ import 'primeicons/primeicons.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-ReactDOM.render(
+createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
     <div className="page">
@@ -19,5 +19,4 @@ ReactDOM.render(
     </div>
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
 );
