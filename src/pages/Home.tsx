@@ -2,8 +2,6 @@ import React from 'react';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import TemplateList from '../components/TemplateList';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 
 
 /**
@@ -12,7 +10,6 @@ import { RootState } from '../redux/store';
  * @return {ReactElement} The rendered Home component.
  */
 const Home: React.FC = () => {
-    const templates = useSelector((state: RootState) => state.templateEmail.templates);
 
     return (
         <div className="container mx-auto pl-12">

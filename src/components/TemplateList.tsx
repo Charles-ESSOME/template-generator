@@ -58,9 +58,9 @@ const TemplateList: React.FC = () => {
         <div className="card">
             <Toast ref={toast} />
             {templates.length ? <DataTable value={templates} tableStyle={{ minWidth: '50rem' }} lazy={true} emptyMessage>
-                <Column field="name" header="Nom template"></Column>
+                <Column field="name" header="Template name"></Column>
                 <Column field="user.firstName" header="Éditeur"></Column>
-                <Column field="created_at" header="Date creation"></Column>
+                <Column field="created_at" header="crated date"></Column>
                 <Column field="category" header="Category"></Column>
 
                 <Column body={actionBodyTemplate} header="Actions" />
