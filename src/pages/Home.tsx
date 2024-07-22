@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     return (
         <div className="container mx-auto pl-12">
             <div className='header-page'>
-                <div className='title-page'>List Of Templates</div>
+                <div className='title-page'>List of templates</div>
                 <div className="actions-header">
                     <Link to="/new-template">
                     <Button type="button" label="New template" icon="pi pi-plus"

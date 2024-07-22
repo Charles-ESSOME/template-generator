@@ -44,16 +44,30 @@ const ManageTemplate: React.FC = (props) => {
 
   const dispatch = useDispatch();
 
+  /**
+   * Handle the addition of a new template.
+   *
+   * @param {object} content - The content of the template.
+   * @return {void} No return value.
+   */
   const handleAddTemplate = (content: object) => {
+    // Create a new template object by merging the base data with the provided content.
     const newTemplate: TemplatesEmail = {
       ...baseData,
       content,
     };
-    dispatch(addTemplate(newTemplate));
 
+    // Dispatch the addTemplate action to add the new template to the state.
+    dispatch(addTemplate(newTemplate));
   };
 
-  const saveData = () => {
+/**
+   * Function to save the data from the email editor.
+   * It checks if the editor exists and saves the design.
+   *
+   * @return {void} No return value.
+   */
+  const saveData = (): void => {
     if (!emailEditorRef.current) return;
     const unLayer = emailEditorRef.current.editor;
     if (!unLayer) return;

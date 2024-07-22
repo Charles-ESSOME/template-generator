@@ -65,7 +65,7 @@ const TemplateList: React.FC = () => {
 
                 <Column body={actionBodyTemplate} header="Actions" />
             </DataTable>
-                : <EmptyList emptyMessage="Aucun template" showImg={true} />}
+                : <EmptyList emptyMessage="No model" showImg={true} />}
         </div>
     );
 };

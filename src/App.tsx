@@ -1,22 +1,25 @@
-import React from 'react';
-import Home from './pages/Home';
+import React, { lazy, Suspense } from 'react';
 import { PrimeReactProvider } from 'primereact/api';
-import ManageTemplate from './pages/ManageTemplate';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Loading from './components/Loading';
 
+const Home = lazy(() => import('./pages/Home'));
+const ManageTemplate = lazy(() => import('./pages/ManageTemplate'))
 
 const App: React.FC = () => {
     return (
-        <Router>
-            <Switch>
-                <PrimeReactProvider>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/template/:id" component={ManageTemplate} />
-                    <Route path="/template/edit/:id" component={ManageTemplate} />
-                    <Route path="/new-template" component={ManageTemplate} />
-                </PrimeReactProvider>
-            </Switch>
-        </Router>
+        <PrimeReactProvider>
+            <Router>
+                <Suspense fallback={<Loading />}>
+                    <Switch>
+                        <Route path="/" exact component={Home} />
+                        <Route path="/template/:id" component={ManageTemplate} />
+                        <Route path="/template/edit/:id" component={ManageTemplate} />
+                        <Route path="/new-template" component={ManageTemplate} />
+                    </Switch>
+                </Suspense>
+            </Router >
+        </PrimeReactProvider>
     );
 };
 
