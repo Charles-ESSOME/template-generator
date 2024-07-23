@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import EmailEditor, { EditorRef, EmailEditorProps } from 'react-email-editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTemplate, selectTemplateById } from '../redux/templatesSlice';
+import { addTemplate, selectTemplateById, updateTemplate } from '../redux/templatesSlice';
 import TemplatesEmail from '../models/template-email.models.';
 import { Button } from 'primereact/button';
 import { Link, useParams, useHistory } from 'react-router-dom';
@@ -58,7 +58,7 @@ const ManageTemplate: React.FC = (props) => {
     };
 
     // Dispatch the addTemplate action to add the new template to the state.
-    dispatch(addTemplate(newTemplate));
+    id? dispatch(updateTemplate(newTemplate)) : dispatch(addTemplate(newTemplate));
   };
 
 /**
@@ -69,7 +69,7 @@ const ManageTemplate: React.FC = (props) => {
    */
   const saveData = (): void => {
     if (!emailEditorRef.current) return;
-    const unLayer = emailEditorRef.current.editor;
+    const unLayer = emailEditorRef?.current?.editor;
     if (!unLayer) return;
     unLayer.saveDesign((data: object) => {
       if (data) {

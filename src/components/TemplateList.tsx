@@ -1,5 +1,5 @@
 import EmptyList from './EmptyList';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { RootState } from '../redux/store';
@@ -9,9 +9,15 @@ import { DataTable } from 'primereact/datatable';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeTemplate } from '../redux/templatesSlice';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Dialog } from 'primereact/dialog';
+import { InputText } from 'primereact/inputtext';
+import { FloatLabel } from 'primereact/floatlabel';
+import sendEmail from '../services/sender-mail';
 
 const TemplateList: React.FC = () => {
     const templates = useSelector((state: RootState) => state?.templateEmail?.templates);
+    const [visible, setVisible] = useState<boolean>(false);
+    const [value, setValue] = useState<string>('');
 
     const dispatch = useDispatch();
 
@@ -20,7 +26,6 @@ const TemplateList: React.FC = () => {
         toast.current?.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
         dispatch(removeTemplate(id));
     }
-
 
     const removeCurrentTemplate = (id: string) => {
         confirmDialog({
@@ -42,12 +47,16 @@ const TemplateList: React.FC = () => {
                 <Link to={'template/' + rowData?.id}>
                     <Button tooltip="Edit Template" text icon="pi pi-pencil" aria-label="edit" rounded severity="success"></Button>
                 </Link>
+                <div>
+                    <Button onClick={() => setVisible(true)} tooltip="Send mail Template" text icon="pi pi-envelope"
+                        aria-label="edit" rounded severity="success"></Button>
+                </div>
                 <>
                     <Toast ref={toast} />
                     <ConfirmDialog />
                     <div className="card flex flex-wrap gap-2 justify-content-center">
-                        <Button onClick={() => removeCurrentTemplate(rowData.id)} icon="pi pi-trash" rounded text severity="danger" aria-label="Cancel"
-                            tooltip="Remove Template" />
+                        <Button onClick={() => removeCurrentTemplate(rowData.id)} icon="pi pi-trash" rounded text severity="danger"
+                            aria-label="Cancel" tooltip="Remove Template" />
                     </div>
                 </>
             </div>
@@ -66,8 +75,25 @@ const TemplateList: React.FC = () => {
                 <Column body={actionBodyTemplate} header="Actions" />
             </DataTable>
                 : <EmptyList emptyMessage="No model" showImg={true} />}
+            <div className="card flex justify-content-center modal">
+                <Dialog header={'Send mail template id'} visible={visible} style={{ width: '25vw' }} onHide={() => { if (!visible) return; setVisible(false); }}>
+                    <div className="card flex justify-content-center">
+                        <FloatLabel>
+                            <InputText id="username" type="email" value={value} onChange={(e) => setValue(e.target.value)} />
+                            <label htmlFor="username">email</label>
+                        </FloatLabel>
+                    </div>
+                    <br />
+
+                    <div className="card flex justify-content-center mar">
+                        <Button label="Send" onClick={() => sendEmail(value, templates[0].content)} />
+                    </div>
+                </Dialog>
+            </div>
         </div>
+
     );
 };
 
 export default TemplateList;
+

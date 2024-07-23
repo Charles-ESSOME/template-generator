@@ -9,26 +9,34 @@ Features
   Real-time preview
   Support for HTML and CSS format
   Easy customisation with Tailwind CSS
-  Installation
+
+  1- View the list of templates created
+2- Get an overview of the templates created : 
+  -Preview of different possible divices
+  - Export the template rendering to an htlm file
+3- Modify a saved template
+4 - Send template test email
+4- Delete a template
+  
+Installation
   Clone the repository:
+  bash
+    Copy the code
+    git clone https://github.com/Charles-ESSOME/template-generator.git
+    <>cd template-generator
+    Install the dependencies:
 
-bash
-  Copy the code
-  git clone https://github.com/Charles-ESSOME/template-generator.git
-  <>cd template-generator
-  Install the dependencies:
+  bash
+    Copy the code
+    <>npm install
+    Start the development server:
 
-bash
-  Copy the code
-  <>npm install
-  Start the development server:
-
-bash
-  Copy the code
-  <>npm start
-  Using
-  Open your browser and go to http://localhost:3000
-  Customise and generate your email templates
+  bash
+    Copy the code
+    <>npm start
+    Using
+    Open your browser and go to http://localhost:3000
+    Customise and generate your email templates
 
 Technologies
   React
