@@ -63,6 +63,13 @@ const TemplateList: React.FC = () => {
         );
     };
 
+    const sendEmailTemplates = async(email: string, data: string | object) =>{
+        const response = await sendEmail(email, data);
+        console.log(response);
+        
+        setVisible(false);
+    }
+
     return (
         <div className="card">
             <Toast ref={toast} />
@@ -86,7 +93,7 @@ const TemplateList: React.FC = () => {
                     <br />
 
                     <div className="card flex justify-content-center mar">
-                        <Button label="Send" onClick={() => sendEmail(value, templates[0].content)} />
+                        <Button label="Send" onClick={() => sendEmailTemplates(value, templates[0].content)} />
                     </div>
                 </Dialog>
             </div>
